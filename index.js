@@ -141,10 +141,11 @@ class DocumentCreator {
                     next: "Normal",
                     quickFormat: true,
                     run: {
-                        size: 28,
+                        size: 24,
                         bold: true,
-                        italics: true,
-                        color: "red",
+                        italics: false,
+                        color: "black",
+                        font:"Arial"
                     },
                     paragraph: {
                         spacing: {
@@ -158,10 +159,35 @@ class DocumentCreator {
                     basedOn: "Normal",
                     next: "Normal",
                     quickFormat: true,
+                    run: {
+                        size: 24,
+                        bold: false,
+                        italics: false,
+                        color: "black",
+                        font:"Arial"
+                    },
                     paragraph: {
                         spacing: {
-                            before: 240,
                             after: 120,
+                        },
+                    },
+                },
+                {
+                    id: "normaltext",
+                    name: "normaltext",
+                    basedOn: "Normal",
+                    next: "Normal",
+                    quickFormat: true,
+                    run: {
+                        size: 24,
+                        bold: false,
+                        italics: false,
+                        color: "black",
+                        font:"Arial"
+                    },
+                    paragraph: {
+                        spacing: {
+                            after: 0,
                         },
                     },
                 },
@@ -220,66 +246,67 @@ class DocumentCreator {
         document.addSection({
             children: [
             this.createContractTitle('12345678'),
-                new Paragraph({
-                    text: "Dolan Miu",
-                    heading: HeadingLevel.TITLE,
-                }),
-                this.createContactInfo(PHONE_NUMBER, PROFILE_URL, EMAIL),
-                this.createHeading("Education"),
-                ...educations
-                    .map((education) => {
-                        const arr = [];
-                        arr.push(
-                            this.createInstitutionHeader(education.schoolName, `${education.startDate.year} - ${education.endDate.year}`),
-                        );
-                        arr.push(this.createRoleText(`${education.fieldOfStudy} - ${education.degree}`));
+            ...this.createContractProfile(),
+                // new Paragraph({
+                //     text: "Dolan Miu",
+                //     heading: HeadingLevel.TITLE,
+                // }),
+                // this.createContactInfo(PHONE_NUMBER, PROFILE_URL, EMAIL),
+                // this.createHeading("Education"),
+                // ...educations
+                //     .map((education) => {
+                //         const arr = [];
+                //         arr.push(
+                //             this.createInstitutionHeader(education.schoolName, `${education.startDate.year} - ${education.endDate.year}`),
+                //         );
+                //         arr.push(this.createRoleText(`${education.fieldOfStudy} - ${education.degree}`));
 
-                        const bulletPoints = this.splitParagraphIntoBullets(education.notes);
-                        bulletPoints.forEach((bulletPoint) => {
-                            arr.push(this.createBullet(bulletPoint));
-                        });
+                //         const bulletPoints = this.splitParagraphIntoBullets(education.notes);
+                //         bulletPoints.forEach((bulletPoint) => {
+                //             arr.push(this.createBullet(bulletPoint));
+                //         });
 
-                        return arr;
-                    })
-                    .reduce((prev, curr) => prev.concat(curr), []),
-                this.createHeading("Experience"),
-                ...experiences
-                    .map((position) => {
-                        const arr = [];
+                //         return arr;
+                //     })
+                //     .reduce((prev, curr) => prev.concat(curr), []),
+                // this.createHeading("Experience"),
+                // ...experiences
+                //     .map((position) => {
+                //         const arr = [];
 
-                        arr.push(
-                            this.createInstitutionHeader(
-                                position.company.name,
-                                this.createPositionDateText(position.startDate, position.endDate, position.isCurrent),
-                            ),
-                        );
-                        arr.push(this.createRoleText(position.title));
+                //         arr.push(
+                //             this.createInstitutionHeader(
+                //                 position.company.name,
+                //                 this.createPositionDateText(position.startDate, position.endDate, position.isCurrent),
+                //             ),
+                //         );
+                //         arr.push(this.createRoleText(position.title));
 
-                        const bulletPoints = this.splitParagraphIntoBullets(position.summary);
+                //         const bulletPoints = this.splitParagraphIntoBullets(position.summary);
 
-                        bulletPoints.forEach((bulletPoint) => {
-                            arr.push(this.createBullet(bulletPoint));
-                        });
+                //         bulletPoints.forEach((bulletPoint) => {
+                //             arr.push(this.createBullet(bulletPoint));
+                //         });
 
-                        return arr;
-                    })
-                    .reduce((prev, curr) => prev.concat(curr), []),
-                this.createHeading("Skills, Achievements and Interests"),
-                this.createSubHeading("Skills"),
-                this.createSkillList(skills),
-                this.createSubHeading("Achievements"),
-                ...this.createAchivementsList(achivements),
-                this.createSubHeading("Interests"),
-                this.createInterests("Programming, Technology, Music Production, Web Design, 3D Modelling, Dancing."),
-                this.createHeading("References"),
-                new Paragraph(
-                    "Dr. Dean Mohamedally Director of Postgraduate Studies Department of Computer Science, University College London Malet Place, Bloomsbury, London WC1E d.mohamedally@ucl.ac.uk",
-                ),
-                new Paragraph("More references upon request"),
-                new Paragraph({
-                    text: "This CV was generated in real-time based on my Linked-In profile from my personal website www.dolan.bio.",
-                    alignment: AlignmentType.CENTER,
-                }),
+                //         return arr;
+                //     })
+                //     .reduce((prev, curr) => prev.concat(curr), []),
+                // this.createHeading("Skills, Achievements and Interests"),
+                // this.createSubHeading("Skills"),
+                // this.createSkillList(skills),
+                // this.createSubHeading("Achievements"),
+                // ...this.createAchivementsList(achivements),
+                // this.createSubHeading("Interests"),
+                // this.createInterests("Programming, Technology, Music Production, Web Design, 3D Modelling, Dancing."),
+                // this.createHeading("References"),
+                // new Paragraph(
+                //     "Dr. Dean Mohamedally Director of Postgraduate Studies Department of Computer Science, University College London Malet Place, Bloomsbury, London WC1E d.mohamedally@ucl.ac.uk",
+                // ),
+                // new Paragraph("More references upon request"),
+                // new Paragraph({
+                //     text: "This CV was generated in real-time based on my Linked-In profile from my personal website www.dolan.bio.",
+                //     alignment: AlignmentType.CENTER,
+                // }),
             ],
         });
 
@@ -289,12 +316,187 @@ class DocumentCreator {
     createContractTitle(contractNo){
     return new Paragraph({
         alignment: AlignmentType.CENTER,
-           heading: HeadingLevel.HEADING_1,
+           heading: HeadingLevel.HEADING_2,
         children:[
-        new TextRun(`Perjanjian Kerja`),
+        new TextRun({
+            text:`Perjanjian Kerja`,
+            bold:true
+        }),
         new TextRun(`No.:${contractNo}`).break(),
         ],
     })
+    }
+
+    createContractProfile(){
+        return [
+            new Paragraph({
+            style:"normaltext",
+            text:`Pada hari ini, 17 Agustus 1945 bertempat di bogor`
+            }),
+            new Paragraph({
+            style:"normaltext",
+            tabStops: [
+                {
+                    type: TabStopType.CENTER,
+                    position: 2450,
+                },
+            ],
+            children:[
+                new TextRun(`Nama`),
+                new TextRun(`\t:`),
+            ],
+         
+        }),
+        new Paragraph({
+            style:"normaltext",
+            tabStops: [
+                {
+                    type: TabStopType.CENTER,
+                    position: 2450,
+                },
+            ],
+            children:[
+                new TextRun(`NIK`),
+                new TextRun(`\t:`),
+            ],
+         
+        }),
+        new Paragraph({
+            style:"normaltext",
+            tabStops: [
+                {
+                    type: TabStopType.CENTER,
+                    position: 2450,
+                },
+            ],
+            children:[
+                new TextRun(`NPWP`),
+                new TextRun(`\t:`),
+            ],
+         
+        }),
+        new Paragraph({
+            style:"normaltext",
+            tabStops: [
+                {
+                    type: TabStopType.CENTER,
+                    position: 2450,
+                },
+            ],
+            children:[
+                new TextRun(`Tempat Tanggal Lahir`),
+                new TextRun(`\t:`),
+            ],
+         
+        }),
+        new Paragraph({
+            style:"normaltext",
+            tabStops: [
+                {
+                    type: TabStopType.CENTER,
+                    position: 2450,
+                },
+            ],
+            children:[
+                new TextRun(`Alamat`),
+                new TextRun(`\t:`),
+                new TextRun(``).break(),
+            ],
+        }),
+        new Paragraph({
+            style:"normaltext",
+            text:`Bertindak untuk dan atas nama diri sendiri sebagai programmer untuk selanjutnya disebut PIHAK PERTAMA`
+            }),
+        new Paragraph({
+            style:"normaltext",
+            alignment:AlignmentType.CENTER,
+            text:`dan`
+        }),
+        new Paragraph({
+            style:"normaltext",
+            tabStops: [
+                {
+                    type: TabStopType.CENTER,
+                    position: 2450,
+                },
+            ],
+            children:[
+                new TextRun(`Nama`),
+                new TextRun(`\t:`),
+            ],
+         
+        }),
+        new Paragraph({
+            style:"normaltext",
+            tabStops: [
+                {
+                    type: TabStopType.CENTER,
+                    position: 2450,
+                },
+            ],
+            children:[
+                new TextRun(`NIK`),
+                new TextRun(`\t:`),
+            ],
+         
+        }),
+        new Paragraph({
+            style:"normaltext",
+            tabStops: [
+                {
+                    type: TabStopType.CENTER,
+                    position: 2450,
+                },
+            ],
+            children:[
+                new TextRun(`Nama Institusi`),
+                new TextRun(`\t:`),
+            ],
+         
+        }),
+        new Paragraph({
+            style:"normaltext",
+            tabStops: [
+                {
+                    type: TabStopType.CENTER,
+                    position: 2450,
+                },
+            ],
+            children:[
+                new TextRun(`NPWP`),
+                new TextRun(`\t:`),
+            ],
+         
+        }),
+        new Paragraph({
+            style:"normaltext",
+            tabStops: [
+                {
+                    type: TabStopType.CENTER,
+                    position: 2450,
+                },
+            ],
+            children:[
+                new TextRun(`Jabatan`),
+                new TextRun(`\t:`),
+            ],
+         
+        }),
+        new Paragraph({
+            style:"normaltext",
+            tabStops: [
+                {
+                    type: TabStopType.CENTER,
+                    position: 2450,
+                },
+            ],
+            children:[
+                new TextRun(`Alamat`),
+                new TextRun(`\t:`),
+            ],
+         
+        }),
+    ]
     }
 
     createContactInfo(phoneNumber, profileUrl, email) {
