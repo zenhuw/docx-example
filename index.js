@@ -126,6 +126,7 @@ const achievements = [
     },
 ];
 
+
 class DocumentCreator {
     create([experiences, educations, skills, achivements]) {
         const document = new Document({
@@ -160,7 +161,7 @@ class DocumentCreator {
                     next: "Normal",
                     quickFormat: true,
                     run: {
-                        size: 24,
+                        size: 30,
                         bold: false,
                         italics: false,
                         color: "black",
@@ -233,8 +234,67 @@ class DocumentCreator {
                     levels: [
                         {
                             level: 0,
+                            format: "decimal",
+                            text: "%1.",
+                            alignment: AlignmentType.LEFT,
+                        },
+                        {
+                            level: 1,
+                            format: "decimal",
+                            text: "%2.",
+                            alignment: AlignmentType.LEFT,
+                        },
+                        {
+                            level: 2,
                             format: "lowerLetter",
-                            text: "%1)",
+                            text: "%3.",
+                            alignment: AlignmentType.START,
+                            style: {
+                                paragraph: {
+                                    indent: { left: 720, hanging: 260 },
+                                },
+                            },
+                        },
+                        {
+                            level: 3,
+                            format: "decimal",
+                            text: "%4.",
+                            alignment: AlignmentType.LEFT,
+                        },
+                        {
+                            level: 4,
+                            format: "decimal",
+                            text: "%5.",
+                            alignment: AlignmentType.LEFT,
+                        },
+                        {
+                            level: 5,
+                            format: "decimal",
+                            text: "%6.",
+                            alignment: AlignmentType.LEFT,
+                        },
+                        {
+                            level: 6,
+                            format: "decimal",
+                            text: "%7.",
+                            alignment: AlignmentType.LEFT,
+                        },
+                        {
+                            level: 7,
+                            format: "decimal",
+                            text: "%8.",
+                            alignment: AlignmentType.LEFT,
+                        },
+                        {
+                            level: 8,
+                            format: "decimal",
+                            text: "%9.",
+                            alignment: AlignmentType.LEFT,
+                        },
+                        {
+                            level: 9,
+                            format: "decimal",
+                            text: "%9.",
                             alignment: AlignmentType.LEFT,
                         },
                     ],
@@ -246,7 +306,19 @@ class DocumentCreator {
         document.addSection({
             children: [
             this.createContractTitle('12345678'),
-            ...this.createContractProfile(),
+            ...this.createContractProfile('Reza'),
+            ...this.createPasal1(),
+            ...this.createPasal2(),
+            ...this.createPasal3('10-02-2020', '20-02-2021'),
+            ...this.createPasal4('50 juta', 40, '05-06-2020', 40, '05-08-2020', '35 juta', '5 juta', '5 juta', '5 juta'),
+            ...this.createPasal5('300 ribu', 'blablabla' ),
+            ...this.createPasal6('1 juta', '2 juta'),
+            ...this.createPasal7(),
+            ...this.createPasal8(),
+            ...this.createPasal9(),
+            ...this.createKeadaanDarurat(),
+            ...this.createPasal10(),
+            ...this.createPasal11(),
                 // new Paragraph({
                 //     text: "Dolan Miu",
                 //     heading: HeadingLevel.TITLE,
@@ -314,20 +386,31 @@ class DocumentCreator {
     }
     
     createContractTitle(contractNo){
-    return new Paragraph({
+    return[
+        new Paragraph({
         alignment: AlignmentType.CENTER,
-           heading: HeadingLevel.HEADING_2,
+        heading: HeadingLevel.HEADING_2,
         children:[
         new TextRun({
             text:`Perjanjian Kerja`,
             bold:true
-        }),
-        new TextRun(`No.:${contractNo}`).break(),
+        })
+    ]
+}),
+        new Paragraph({
+            alignment: AlignmentType.CENTER,
+            style:"normaltext",
+            children:[
+            new TextRun({
+                text:`No.:${contractNo}`,
+            }),
+            new TextRun(``).break(),
         ],
     })
+    ]
     }
 
-    createContractProfile(){
+    createContractProfile(pemberiKerja){
         return [
             new Paragraph({
             style:"normaltext",
@@ -493,8 +576,23 @@ class DocumentCreator {
             children:[
                 new TextRun(`Alamat`),
                 new TextRun(`\t:`),
+                new TextRun(``).break(),
             ],
-         
+        }),
+        new Paragraph({
+            style:"normaltext",
+            text:`Sebagai (jabatan pemberi kerja) bertindak untuk dan atas nama ${pemberiKerja} untuk selanjutnya disebut sebagai PIHAK KEDUA.`,
+            children:[
+                new TextRun(``).break(),
+            ],
+        }),
+        new Paragraph({
+            style:"normaltext",
+            text:`Dengan ini, sepakat untuk mengadakan perjanjian kerja (jenis pekerjaan) dengan syarat- syarat dan ketentuan-ketentuan sebagai berikut.`,
+            children:[
+                new TextRun(``).break(),
+                new TextRun(``).break(),
+            ],
         }),
     ]
     }
@@ -635,6 +733,752 @@ class DocumentCreator {
                 return "N/A";
         }
     }
+
+
+    createPasal1 () {
+            return [
+                new Paragraph ({
+                    style:"normaltext",
+                    alignment:AlignmentType.CENTER,
+                    children: [
+                        new TextRun ({
+                            text : `Pasal 1`,
+                            bold: true
+                        })
+                    ]
+                }),
+                new Paragraph ({
+                    style:"normaltext",
+                    alignment:AlignmentType.CENTER,
+                    children: [
+                        new TextRun ({
+                            text : `Pernyataan`,
+                            bold: true
+                        }),
+                        new TextRun(``).break(),
+                    ]
+                }),
+                new Paragraph ({
+                    numbering: {
+                        reference: "my-crazy-numbering",
+                        level: 0, 
+                    },
+                    text : `Pihak Pertama telah menyatakan persetujuannya untuk menjadi pekerja harian/lepas.`,
+                    children: [
+                        new TextRun(``).break(),
+                    ]
+                }),
+                new Paragraph ({
+                    numbering: {
+                        reference: "my-crazy-numbering",
+                        level: 0,
+                    },
+                    text : `Pihak Kedua menyatakan kesediaannya selaku pemberi kerja yang tunduk pada peraturan perundang-undangan yang berlaku di Indonesia`,
+                    children: [
+                        new TextRun(``).break(),
+                    ]
+                })
+            ]
+    }
+
+
+    createPasal2 () {
+        return [
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Pasal 2`,
+                        bold: true
+                    })
+                ]
+            }),
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Ruang Lingkup Pekerjaan`,
+                        bold: true
+                    }),
+                    new TextRun(``).break(),
+                ] 
+            }),
+            new Paragraph ({
+                text : `Pekerjaan yang harus dilakukan Pihak Pertama selaku pekerja harian/lepas pada Pihak Kedua adalah (detail deskripsi kerja: hasil kerja, penggunaan hasil kerja dan ketentuan maksimal revisi).`,
+                style:"normaltext",
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+        ]
+}
+
+    createPasal3 (startDate, endDate) {
+        return [
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Pasal 3`,
+                        bold: true
+                    })
+                ]
+            }),
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Jangka Waktu Berlakunya Perjanjian Kerja`,
+                        bold: true
+                    }),
+                    new TextRun(``).break(),
+                ] 
+            }),
+            new Paragraph ({
+                text : `Perjanjian Kerja ini berlaku untuk jangka waktu (durasi) terhitung sejak (waktu/tanggal) ${startDate} hingga ${endDate} dan dapat diperpanjang atas kesepakatan kedua belah pihak.`,
+                style:"normaltext",  
+                children: [
+                    new TextRun(``).break(),
+                ]
+            })
+        ]
+    }
+
+    createPasal4 (upahTotal, persenTengah, tanggalTengah, persenAkhir, tanggalAkhir, upahPokok, asuransiKk, asuransiKes, alatKerja) {
+        return [
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Pasal 4`,
+                        bold: true
+                    })
+                ]
+            }),
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Upah`,
+                        bold: true
+                    }),
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 1, 
+                },
+                text : `Pihak Pertama berhak menerima upah total sebesar Rp.${upahTotal} dengan mekanisme pembayaran tiga tahap atau 20% di awal pada saat kontrak ditandatangani, ${persenTengah}% di pertengahan pada tanggal ${tanggalTengah} dan ${persenAkhir}% di akhir sebagai pelunasan pada tanggal ${tanggalAkhir}`,  
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 1,
+                },
+                text : `Apabila terjadi keterlambatan pembayaran upah, Pihak Kedua sepakat untuk membayar denda keterlambatan 2,5% per hari dari total upah yang diperjanjikan dalam perjanjian ini.`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 1,
+                },
+                text : `Komponen upah terdiri dari :`,
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 2,
+                },
+                text : `upah pokok sebesar Rp.${upahPokok}`,
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 2,
+                },
+                text : `asuransi ketenagakerjaan sebesar Rp.${asuransiKk}`,
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 2,
+                },
+                text : `asuransi kesehatan sebesar Rp.${asuransiKes}`,
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 2,
+                },
+                text : `alat kerja sebesar Rp.${alatKerja}`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 1,
+                },
+                text : `Pihak Kedua akan membayarkan semua bentuk pajak yang keluar dari perjanjian ini berdasarkan Peraturan Perpajakan Negara Indonesia.`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            })
+        ]
+    }
+
+    createPasal5 (upahLembur, jamSos) {
+        return [
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Pasal 5`,
+                        bold: true
+                    })
+                ]
+            }),
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Hak dan Kewajiban`,
+                        bold: true
+                    }),
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 3, 
+                },
+                text : `Pihak Pertama memiliki jam koordinasi kerja 8 jam setiap hari dengan ketentuan dari jam 09.00 hingga jam 18.00 WIB (waktu menyesuaikan kesepakatan).`,  
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 3,
+                },
+                text : `Pihak Pertama berhak memiliki waktu istirahat setelah hari kelima bekerja.`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 3,
+                },
+                text : `Pihak Pertama berhak atas upah lembur jika ada pekerjaan yang harus segera diselesaikan di luar jam kerja yang telah ditentukan,dengan upah lembur sebesar Rp.${upahLembur} /setiap jam lembur.`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 3,
+                },
+                text : `Pihak Pertama berhak atas Jaminan Sosial Tenaga Kerja dengan mekanisme (penggantian uang atau masuk komponen upah).`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 3,
+                },
+                text : `Pihak Pertama beserta Keluarga (maksimal dengan 3 anak) berhak atas Jaminan Sosial Kesehatan dengan mekanisme ${jamSos}`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 3,
+                },
+                text : `Pihak Pertama berkewajiban memenuhi/melaksanakan tugas-tugasnya sebagaimana diuraikan di dalam uraian pekerjaan Pasal 2 tentang ruang lingkup pekerjaan.`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            })
+        ]
+    }
+
+    createPasal6 (sewaAlat, perlindunganAlat) {
+        return [
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Pasal 6`,
+                        bold: true
+                    })
+                ]
+            }),
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Alat Kerja`,
+                        bold: true
+                    }),
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 4,    
+                },
+                text : `Pihak Kedua menyediakan alat kerja yang dibutuhkan oleh Pihak Pertama untuk melakukan pekerjaan yang diperjanjikan.`,
+                children: [
+                    new TextRun(``).break(),
+                ] 
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 4,
+                },
+                text : `Jika alat kerja yang digunakan adalah alat kerja milik Pihak Pertama atau pihak lain yang disediakan oleh Pihak Pertama, maka hal tersebut dikenakan uang sewa alat kerja sebesar Rp.${sewaAlat}/hari (pertimbangkan untuk masuk dalam komponen upah).`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 4,
+                },
+                text : `Pembayaran sewa alat kerja dan perlindungan alat kerja sebesar Rp.${perlindunganAlat} sesuai kesepakatan kedua belah pihak.`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            })
+        ]
+    }
+
+
+    createPasal7 () {
+        return [
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Pasal 7`,
+                        bold: true
+                    })
+                ]
+            }),
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Jaminan`,
+                        bold: true
+                    }),
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                text : `Para pihak menjamin bahwa :`,
+                style:"normaltext",
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 5,
+                },
+                text : `Kewajiban dan hak para pihak akan dilakukan dipenuhi secara profesional.`, 
+                children: [
+                    new TextRun(``).break(),
+                ] 
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 5,
+                },
+                text : `Tidak ada penggunaan, produksi, distribusi atau eksploitasi yang akan melanggar, menyalahgunakan atau melanggar kekayaan intelektual atau hak lain dari orang atau badan.`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 5,
+                },
+                text : `Para pihak harus mematuhi semua hukum yang berlaku di Indonesia dalam menjalankan pekerjaan yang diperjanjikan.`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            })
+        ]
+    }
+
+    createPasal8 () {
+        return [
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Pasal 8`,
+                        bold: true
+                    })
+                ]
+            }),
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Hak Kekayaan Intelektual`,
+                        bold: true
+                    }),
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 6,
+                },
+                text : `Para pihak menjamin untuk menghormati hak kekayaan intelektual yang dihasilkan dari perjanjian kerja ini.`,  
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 6,
+                },
+                text : `Hasil karya yang telah dikerjakan menjadi milik kedua belah pihak setelah dilakukan pelunasan pembayaran oleh Pihak Kedua.`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 6,
+                },
+                text : `Pihak Kedua tidak diperkenankan menggunakan hasil karya yang telah diberikan oleh Pihak Pertama sebelum melakukan pelunasan biaya, dan`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 6,
+                },
+                text : `Pihak Kedua tidak diperkenankan menggunakan ulang hasil karya atau menggandakan hasil karya yang dibuat oleh Pihak Pertama lebih dari 1 kali tanpa adanya persetujuan dari Pihak Pertama.`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            })
+        ]
+    }
+
+    createPasal9 () {
+        return [
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Pasal 9`,
+                        bold: true
+                    })
+                ]
+            }),
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Perlindungan terhadap Pekerja Perempuan`,
+                        bold: true
+                    }),
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 7,
+                },
+                text : `Dalam hal Pihak Pertama diharuskan berangkat atau pulang bekerja di luar jam kerja dan pulang di atas pukul 22.00 WIB, maka Pihak Kedua wajib menyediakan transportasi yang aman untuk Pihak Pertama atau sekurang-kurangnya menyediakan pengganti biaya taksi.`,  
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 7,
+                },
+                text : `Hak pekerja perempuan dalam kondisi haid dan melahirkan disesuaikan dengan kesepakatan kedua pihak dengan mengacu kepada peraturan ketenagakerjaan yang berlaku di Indonesia.`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 7,
+                },
+                text : `Pihak Kedua berkewajiban melindungi pekerja perempuan dari ancaman kekerasan dan pelecehan seksual.`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            })
+        ]
+    }
+
+    createKeadaanDarurat () {
+        return [
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Keadaan Darurat (force majeure)`,
+                        bold: true
+                    }),
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 8,
+                },
+                text : `Perjanjian kerja ini batal dengan sendirinya jika karena keadaan atau situasi yang memaksa, seperti: bencana alam, pemberontakan, perang, huru-hara, kerusuhan, atau apa pun yang mengakibatkan perjanjian kerja ini tidak mungkin lagi untuk diwujudkan.`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 8,
+                },
+                text : `Pihak Pertama sakit atau dalam keadaan fisik dan nonfisik yang tidak memungkinkan memenuhi kewajiban sebagaimana pasal 2, maka waktu penyelesaian pekerjaan dapat dinegosiasikan kembali.`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            })
+        ]
+    }
+
+    createPasal10 () {
+        return [
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Pasal 10`,
+                        bold: true
+                    })
+                ]
+            }),
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Penyelesaian Perselisihan`,
+                        bold: true
+                    }),
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 0,
+                },
+                text : `Apabila terjadi perselisihan antara kedua belah pihak akan diselesaikan secara musyawarah untuk mencapai mufakat.`, 
+                children: [
+                    new TextRun(``).break(),
+                ] 
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 0,
+                },
+                text : `Apabila dengan cara ayat 1 pasal ini tidak tercapai kata sepakat, maka kedua belah pihak sepakat untuk menyelesaikan permasalahan tersebut dilakukan melalui prosedur hukum yang berlaku atau Pengadilan Hubungan Industrial.`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            })
+        ]
+    }
+
+    createPasal11 () {
+        return [
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Pasal 11`,
+                        bold: true
+                    })
+                ]
+            }),
+            new Paragraph ({
+                style:"normaltext",
+                alignment:AlignmentType.CENTER,
+                children: [
+                    new TextRun ({
+                        text : `Lain-lain`,
+                        bold: true
+                    }),
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 9, 
+                },
+                text : `Hal-hal yang belum tercantum di dalam perjanjian ini akan diatur kemudian.`, 
+                children: [
+                    new TextRun(``).break(),
+                ] 
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 9,
+                },
+                text : `Segala perubahan terhadap sebagian atau seluruh pasal dalam perjanjian kerja ini hanya dapat dilakukan dengan persetujuan para pihak`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 10,
+                },
+                text : `Perjanjian kerja ini dibuat rangkap 2 (dua) yang masing-masing mempunyai kekuatan hukum yang sama.`,
+                children: [
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                numbering: {
+                    reference: "my-crazy-numbering",
+                    level: 10,
+                },
+                text : `Perjanjian kerja ini wajib dibuat dalam bahasa Indonesia dan jika dibutuhkan dalam bahasa Inggris.`,
+                children: [
+                    new TextRun(``).break(),
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph ({
+                text : `Demikianlah perjanjian kerja ini dibuat oleh kedua belah pihak dalam keadaan sehat jasmani dan rohani tanpa adanya paksaan atau tekanan dari pihak mana pun.`,
+                style:"normaltext",
+                children: [
+                    new TextRun(``).break(),
+                    new TextRun(``).break(),
+                    new TextRun(``).break(),
+                    new TextRun(``).break(),
+                ]
+            }),
+            new Paragraph({
+                style:"normaltext",
+                tabStops: [
+                    {
+                        type: TabStopType.CENTER,
+                        position: 7000,
+                    },
+                ],
+                children:[
+                    new TextRun(`PIHAK PERTAMA`),
+                    new TextRun(`\tPIHAK KEDUA`),
+                    new TextRun(``).break(),
+                    new TextRun(``).break(),
+                    new TextRun(``).break(),
+                    new TextRun(``).break(),
+                    new TextRun(``).break(),
+                    new TextRun(``).break(),
+                ],
+            }),
+            new Paragraph({
+                style:"normaltext",
+                tabStops: [
+                    {
+                        type: TabStopType.CENTER,
+                        position: 7000,
+                    },
+                ],
+                children:[
+                    new TextRun(`      (materai)`),
+                    new TextRun(`\t(materai)`),
+                    new TextRun(``).break(),
+                ],
+            }),
+            new Paragraph({
+                style:"normaltext",
+                tabStops: [
+                    {
+                        type: TabStopType.CENTER,
+                        position: 7000,
+                    },
+                ],
+                children:[
+                    new TextRun(`1. .......................`),
+                    new TextRun(`\t2. .......................`),
+                    new TextRun(``).break(),
+                ],
+            }),
+        ]
+    }
+
+   
+
+
 }
 
 app.get("/", async (req, res) => {
